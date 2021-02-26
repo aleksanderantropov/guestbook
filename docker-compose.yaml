@@ -1,10 +1,13 @@
-version: '3'
+version: "3"
 
-services: 
-  database:
-    image: postgres:13-alpine
-    environment:
-      POSTGRES_USER: main
-      POSTGRES_PASSWORD: main
-      POSTGRES_DB: main
-    ports: [5432]
+services:
+    database:
+        image: postgres:13-alpine
+        environment:
+            POSTGRES_USER: main
+            POSTGRES_PASSWORD: main
+            POSTGRES_DB: main
+        ports: [5432]
+    mailer:
+        image: schickling/mailcatcher
+        ports: [1025, 1080]
