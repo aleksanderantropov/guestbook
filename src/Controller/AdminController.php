@@ -56,7 +56,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/http-cache/{uri<.*>}', methods: ['PURGE'])]
+    #[Route('/http-cache/{uri<.*>}')]
     public function purgeHttpCache(KernelInterface $kernel, Request $request, string $uri): Response
     {
         if ('prod' === $kernel->getEnvironment()) {
@@ -64,7 +64,7 @@ class AdminController extends AbstractController
         }
 
         $store = (new class($kernel) extends HttpCache {})->getStore();
-        $store->purge($request->getSchemeAndHttpHost().$uri);
+        $store->purge($request->getSchemeAndHttpHost().'/'.$uri);
 
         return new Response('Done');
     }

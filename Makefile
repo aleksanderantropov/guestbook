@@ -1,10 +1,12 @@
 SHELL := /bin/bash
 
 start: export APP_ENV=dev
-	symfony server:start -dn
+start:
+	symfony server:start -d
 	docker-compose up -d
-	symfony run -dn --watch=config,src,templates,vendor symfony console messenger:consume async
-
+	symfony run -d --watch=config,src,templates,vendor symfony console messenger:consume async
+	symfony run -d yarn encore dev --watch
+	
 tests: export APP_ENV=test
 tests:
 	symfony console doctrine:database:drop --force || true
